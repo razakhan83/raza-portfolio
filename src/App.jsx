@@ -152,12 +152,25 @@ export default function App() {
               </a>
             </div>
 
-            <button 
-              onClick={() => handleScrollTo('contact')} 
-              className="cta-btn"
-            >
-              Let's Build Something Great
-            </button>
+            <div className="hero-cta-group">
+              <button 
+                onClick={() => handleScrollTo('contact')} 
+                className="cta-btn"
+              >
+                Let's Build Something Great
+              </button>
+              
+              <a 
+                href="/resume.pdf" 
+                download="Ahmed_Raza_CV.pdf"
+                className="cta-btn secondary"
+              >
+                <svg className="cta-icon" viewBox="0 0 24 24" style={{ marginRight: '8px', width: '20px', height: '20px' }}>
+                  <path fill="currentColor" d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
+                </svg>
+                Download CV
+              </a>
+            </div>
           </div>
 
           {/* Right Headshot Column */}
