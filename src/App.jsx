@@ -103,21 +103,24 @@ export default function App() {
       title: 'E-Commerce Nexus',
       tech: 'React, Node.js, Express, MongoDB, Redux',
       desc: 'A complete full-stack e-commerce marketplace featuring secure Stripe gateway integration, interactive admin dashboard, and dynamic product filtering.',
-      badge: 'MERN Stack'
+      badge: 'MERN Stack',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80' // Gorgeous checkout UI visual
     },
     {
       id: '2',
       title: 'CryptoTrack Pro',
       tech: 'React, Node.js, Express, Coingecko API',
       desc: 'Cross-platform mobile application displaying real-time cryptocurrency values, interactive historical charts, and customizable price-change alerts.',
-      badge: 'Mobile & API'
+      badge: 'Mobile & API',
+      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=600&q=80' // Dark aesthetic crypto charts
     },
     {
       id: '3',
       title: 'TaskFlow Planner',
       tech: 'MongoDB, Express, React, Socket.io',
       desc: 'Real-time collaborative kanban board and project management tool designed for teams with instant state synchronization via WebSockets.',
-      badge: 'Real-time Web'
+      badge: 'Real-time Web',
+      image: 'https://images.unsplash.com/photo-1611224885990-ab7363d1f2a9?auto=format&fit=crop&w=600&q=80' // Dynamic workflow layoutboard
     }
   ];
 
@@ -353,7 +356,10 @@ export default function App() {
           <div className="projects-grid">
             {mockProjects.map((p) => (
               <div key={p.id} className="project-card">
-                <div className="project-card-header">
+                <div className="project-image-wrapper">
+                  <img src={p.image} alt={p.title} className="project-image" />
+                </div>
+                <div className="project-card-header" style={{ marginTop: '1.2rem' }}>
                   <h3 className="project-title">{p.title}</h3>
                   <span className="project-badge">{p.badge}</span>
                 </div>
