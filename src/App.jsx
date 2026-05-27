@@ -143,23 +143,25 @@ export default function App() {
 
       {/* Top Header Navigation */}
       <header className="navbar">
-        <a href="#about" className="logo" onClick={(e) => { e.preventDefault(); handleScrollTo('about'); }}>
-          AR<div className="logo-dot"></div>
-        </a>
-        <nav className="nav-links">
-          <button className="nav-btn" onClick={() => handleScrollTo('about')}>
-            About
-          </button>
-          <button className="nav-btn" onClick={() => handleScrollTo('skills')}>
-            Skills
-          </button>
-          <button className="nav-btn" onClick={() => handleScrollTo('projects')}>
-            Projects
-          </button>
-          <button className="nav-btn" onClick={() => handleScrollTo('contact')}>
-            Contact
-          </button>
-        </nav>
+        <div className="navbar-container">
+          <a href="#about" className="logo" onClick={(e) => { e.preventDefault(); handleScrollTo('about'); }}>
+            AR<div className="logo-dot"></div>
+          </a>
+          <nav className="nav-links">
+            <button className="nav-btn" onClick={() => handleScrollTo('about')}>
+              About
+            </button>
+            <button className="nav-btn" onClick={() => handleScrollTo('skills')}>
+              Skills
+            </button>
+            <button className="nav-btn" onClick={() => handleScrollTo('projects')}>
+              Projects
+            </button>
+            <button className="nav-btn" onClick={() => handleScrollTo('contact')}>
+              Contact
+            </button>
+          </nav>
+        </div>
       </header>
 
       {/* Main Sections */}
