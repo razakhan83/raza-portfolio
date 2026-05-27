@@ -718,7 +718,7 @@ body {
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 99999;
+    z-index: 9999999;
     transition: width 0.2s, height 0.2s, background-color 0.2s;
   }
   .custom-cursor-dot.hovered {
@@ -738,7 +738,7 @@ body {
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 99998;
+    z-index: 9999998;
     opacity: 0.5;
     transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s, opacity 0.3s;
   }
