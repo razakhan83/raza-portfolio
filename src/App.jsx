@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function App() {
   const [skillsAnimated, setSkillsAnimated] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   
   // Custom Cursor States
   const [position, setPosition] = useState({ x: -100, y: -100 });
@@ -36,7 +37,7 @@ export default function App() {
 
     // Track interactive items to scale cursor
     const addCursorHoverListeners = () => {
-      const interactives = document.querySelectorAll('a, button, .project-card, .tech-chip, .form-input');
+      const interactives = document.querySelectorAll('a, button, .project-card, .tech-chip, .form-input, .modal-close');
       interactives.forEach((el) => {
         el.addEventListener('mouseenter', () => setLinkHovered(true));
         el.addEventListener('mouseleave', () => setLinkHovered(false));
@@ -54,7 +55,7 @@ export default function App() {
       window.removeEventListener('mouseup', handleMouseUp);
       clearTimeout(bindingTimer);
     };
-  }, []);
+  }, [selectedProject]); // Re-trigger bindings when a modal opens to track close button
 
   // Smooth trail interpolation for custom cursor outer ring
   useEffect(() => {
@@ -103,24 +104,33 @@ export default function App() {
       title: 'E-Commerce Nexus',
       tech: 'React, Node.js, Express, MongoDB, Redux',
       desc: 'A complete full-stack e-commerce marketplace featuring secure Stripe gateway integration, interactive admin dashboard, and dynamic product filtering.',
+      longDesc: 'A premium full-stack e-commerce experience designed for modern online retailers. Built with high-performance React architectures, Redux Toolkit state management, and a robust Node.js backend. Features secure payment checkout via Stripe SDK, full administrative product management panels, real-time product search matching, and dynamic category filtering.',
       badge: 'MERN Stack',
-      image: 'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80' // Gorgeous checkout UI visual
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80',
+      liveLink: 'https://github.com/razakhan83',
+      githubLink: 'https://github.com/razakhan83'
     },
     {
       id: '2',
       title: 'CryptoTrack Pro',
       tech: 'React, Node.js, Express, Coingecko API',
       desc: 'Cross-platform mobile application displaying real-time cryptocurrency values, interactive historical charts, and customizable price-change alerts.',
+      longDesc: 'A cutting-edge cryptocurrency tracking client displaying live ticker feeds, interactive historical line graphs, and detailed coin statistics using the official CoinGecko API. Engineered with responsive CSS layouts, customized chart rendering, and an alert system notifying users of key coin threshold crossings.',
       badge: 'Mobile & API',
-      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=600&q=80' // Dark aesthetic crypto charts
+      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=600&q=80',
+      liveLink: 'https://github.com/razakhan83',
+      githubLink: 'https://github.com/razakhan83'
     },
     {
       id: '3',
       title: 'TaskFlow Planner',
       tech: 'MongoDB, Express, React, Socket.io',
       desc: 'Real-time collaborative kanban board and project management tool designed for teams with instant state synchronization via WebSockets.',
+      longDesc: 'A real-time collaborative kanban workspace tailored for team sprints and task management. Leveraging WebSockets (Socket.io) to ensure instant, zero-latency state synchronization across all connected clients. Structured with a clean fluid drag-and-drop workflow card deck and complete task description edit boxes.',
       badge: 'Real-time Web',
-      image: 'https://images.unsplash.com/photo-1611224885990-ab7363d1f2a9?auto=format&fit=crop&w=600&q=80' // Dynamic workflow layoutboard
+      image: 'https://images.unsplash.com/photo-1611224885990-ab7363d1f2a9?auto=format&fit=crop&w=600&q=80',
+      liveLink: 'https://github.com/razakhan83',
+      githubLink: 'https://github.com/razakhan83'
     }
   ];
 
@@ -138,6 +148,44 @@ export default function App() {
             style={{ left: `${trail.x}px`, top: `${trail.y}px` }}
           />
         </>
+      )}
+
+      {/* Interactive Detail Popup Modal */}
+      {selectedProject && (
+        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="modal-card animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedProject(null)}>&times;</button>
+            <div className="modal-image-wrapper">
+              <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+            </div>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title">{selectedProject.title}</h3>
+                <span className="modal-badge">{selectedProject.badge}</span>
+              </div>
+              <p className="modal-desc">{selectedProject.longDesc}</p>
+              <div className="modal-tech-grid">
+                {selectedProject.tech.split(', ').map(t => (
+                  <span key={t} className="tech-chip">{t}</span>
+                ))}
+              </div>
+              <div className="modal-links">
+                <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="modal-link-btn" title="Live Preview">
+                  <svg className="modal-link-svg" viewBox="0 0 24 24">
+                    <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                  </svg>
+                  <span>Live Project</span>
+                </a>
+                <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="modal-link-btn github" title="GitHub Code">
+                  <svg className="modal-link-svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                  </svg>
+                  <span>GitHub Code</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Background Glowing Blobs */}
@@ -355,7 +403,7 @@ export default function App() {
 
           <div className="projects-grid">
             {mockProjects.map((p) => (
-              <div key={p.id} className="project-card">
+              <div key={p.id} className="project-card" onClick={() => setSelectedProject(p)} style={{ cursor: 'pointer' }}>
                 <div className="project-image-wrapper">
                   <img src={p.image} alt={p.title} className="project-image" />
                 </div>
