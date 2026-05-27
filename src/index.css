@@ -196,7 +196,7 @@ body {
 }
 @media (min-width: 992px) {
   .hero-text-col {
-    width: 55%;
+    width: 50%;
   }
 }
 
@@ -219,7 +219,7 @@ body {
 
 .hero-name {
   font-family: var(--font-heading);
-  font-size: 2.8rem;
+  font-size: 3.4rem;
   font-weight: 900;
   color: var(--text-primary);
   line-height: 1.1;
@@ -227,25 +227,25 @@ body {
 }
 @media (min-width: 768px) {
   .hero-name {
-    font-size: 4.5rem;
+    font-size: 5.6rem;
   }
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--text-secondary);
   margin-top: 0.5rem;
 }
 @media (min-width: 768px) {
   .hero-title {
-    font-size: 2.2rem;
+    font-size: 2.8rem;
   }
 }
 
 .hero-desc {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-muted);
   line-height: 1.7;
   margin-top: 1.5rem;
@@ -253,7 +253,7 @@ body {
 }
 @media (min-width: 768px) {
   .hero-desc {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -337,13 +337,13 @@ body {
 }
 @media (min-width: 992px) {
   .hero-image-col {
-    width: 38%;
+    width: 44%;
   }
 }
 
 .image-outer-glow {
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
   padding: 6px;
   border: 2px solid var(--secondary-color);
@@ -353,8 +353,8 @@ body {
 }
 @media (min-width: 768px) {
   .image-outer-glow {
-    width: 320px;
-    height: 320px;
+    width: 380px;
+    height: 380px;
   }
 }
 .image-outer-glow:hover {
