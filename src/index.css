@@ -649,3 +649,97 @@ body {
   height: 20px;
   fill: currentColor;
 }
+
+/* Custom Cursor styling (Desktop Only) */
+@media (min-width: 1024px) {
+  body, a, button, .project-card, .social-icon-btn, .cta-btn, .form-input, .logo {
+    cursor: none !important;
+  }
+  
+  .custom-cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99999;
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+  }
+  .custom-cursor-dot.hovered {
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+  }
+  .custom-cursor-dot.clicked {
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+
+  .custom-cursor-circle {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0.5;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s, opacity 0.3s;
+  }
+  .custom-cursor-circle.hovered {
+    width: 60px;
+    height: 60px;
+    border-color: var(--primary-color);
+    background-color: rgba(108, 92, 231, 0.05);
+    opacity: 0.8;
+  }
+  .custom-cursor-circle.clicked {
+    width: 30px;
+    height: 30px;
+    border-color: var(--accent-color);
+    background-color: rgba(253, 121, 168, 0.1);
+  }
+}
+
+/* Background Blobs Pulse Animation */
+@keyframes pulse-blob {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.15) translate(40px, -40px);
+  }
+}
+.glow-blob {
+  animation: pulse-blob 20s infinite ease-in-out;
+}
+.blob-2 {
+  animation-delay: 6s;
+}
+
+/* Profile Image Glow Spin Animation */
+@keyframes glow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.image-outer-glow {
+  position: relative;
+}
+.image-outer-glow::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 2px dashed rgba(0, 206, 201, 0.4);
+  pointer-events: none;
+  animation: glow-spin 30s linear infinite;
+}

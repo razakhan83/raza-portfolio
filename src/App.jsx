@@ -2,12 +2,79 @@ import React, { useState, useEffect } from 'react';
 
 export default function App() {
   const [skillsAnimated, setSkillsAnimated] = useState(false);
+  
+  // Custom Cursor States
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [trail, setTrail] = useState({ x: -100, y: -100 });
+  const [clicked, setClicked] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   // Trigger skills animation on load so they are ready as the user scrolls down
   useEffect(() => {
     const timer = setTimeout(() => setSkillsAnimated(true), 300);
     return () => clearTimeout(timer);
   }, []);
+
+  // Custom Cursor Listeners
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      setHidden(false);
+    };
+
+    const handleMouseLeave = () => setHidden(true);
+    const handleMouseEnter = () => setHidden(false);
+    const handleMouseDown = () => setClicked(true);
+    const handleMouseUp = () => setClicked(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+
+    // Track interactive items to scale cursor
+    const addCursorHoverListeners = () => {
+      const interactives = document.querySelectorAll('a, button, .project-card, .tech-chip, .form-input');
+      interactives.forEach((el) => {
+        el.addEventListener('mouseenter', () => setLinkHovered(true));
+        el.addEventListener('mouseleave', () => setLinkHovered(false));
+      });
+    };
+
+    // Delay bindings slightly to allow components to mount fully
+    const bindingTimer = setTimeout(addCursorHoverListeners, 800);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
+      clearTimeout(bindingTimer);
+    };
+  }, []);
+
+  // Smooth trail interpolation for custom cursor outer ring
+  useEffect(() => {
+    let animationFrameId;
+    
+    const updateTrail = () => {
+      setTrail((prev) => {
+        const dx = position.x - prev.x;
+        const dy = position.y - prev.y;
+        return {
+          x: prev.x + dx * 0.15, // 15% lag interpolation
+          y: prev.y + dy * 0.15
+        };
+      });
+      animationFrameId = requestAnimationFrame(updateTrail);
+    };
+    
+    animationFrameId = requestAnimationFrame(updateTrail);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [position]);
 
   const handleScrollTo = (id) => {
     const element = document.getElementById(id);
@@ -56,6 +123,20 @@ export default function App() {
 
   return (
     <div className="portfolio-root">
+      {/* Custom Mouse Follower Dots */}
+      {!hidden && (
+        <>
+          <div 
+            className={`custom-cursor-dot ${clicked ? 'clicked' : ''} ${linkHovered ? 'hovered' : ''}`}
+            style={{ left: `${position.x}px`, top: `${position.y}px` }}
+          />
+          <div 
+            className={`custom-cursor-circle ${clicked ? 'clicked' : ''} ${linkHovered ? 'hovered' : ''}`}
+            style={{ left: `${trail.x}px`, top: `${trail.y}px` }}
+          />
+        </>
+      )}
+
       {/* Background Glowing Blobs */}
       <div className="glow-blob blob-1"></div>
       <div className="glow-blob blob-2"></div>
@@ -152,6 +233,7 @@ export default function App() {
               </a>
             </div>
 
+            {/* CTA Group */}
             <div className="hero-cta-group">
               <button 
                 onClick={() => handleScrollTo('contact')} 
