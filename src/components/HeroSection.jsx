@@ -148,8 +148,8 @@ export default function HeroSection() {
             </motion.button>
 
             <motion.a
-              href="/resume.pdf"
-              download="Ahmed_Raza_CV.pdf"
+              href="/ahmed_raza_cv.html"
+              download="Ahmed_Raza_CV.html"
               className="btn btn-outline btn-lg w-full sm:w-auto"
               data-cursor="pointer"
               whileHover={{ y: -2 }}

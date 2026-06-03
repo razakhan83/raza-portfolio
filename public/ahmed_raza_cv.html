@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmed Raza — CV / Resume</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <style>
+    :root {
+      --primary: #4f46e5;      /* Indigo */
+      --secondary: #0d9488;    /* Teal */
+      --dark: #0f172a;         /* Deep Slate */
+      --text-main: #334155;    /* Slate-700 */
+      --text-light: #64748b;   /* Slate-500 */
+      --sidebar-bg: #090d16;   /* Rich dark background */
+      --sidebar-text: #94a3b8; /* Slate-400 */
+      --sidebar-light: #f8fafc;
+      --sidebar-accent: #2dd4bf;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+
+    /* Outer Wrapper for Web Preview */
+    .preview-header {
+      background: #ffffff;
+      padding: 12px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 210mm;
+      margin: 20px auto 0 auto;
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .preview-info h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .preview-info p {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    .print-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .print-btn:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+    }
+
+    /* A4 CSS Layout */
+    .cv-page {
+      width: 210mm;
+      height: 297mm;
+      margin: 20px auto 40px auto;
+      background: #ffffff;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Sidebar Styling */
+    .cv-sidebar {
+      width: 70mm;
+      background-color: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .sidebar-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .sidebar-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px auto;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .sidebar-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--sidebar-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sidebar-section {
+      margin-bottom: 22px;
+    }
+
+    .sidebar-section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 4px;
+    }
+
+    .sidebar-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 11.5px;
+    }
+
+    .sidebar-row i {
+      color: var(--sidebar-accent);
+      font-size: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-row a {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      word-break: break-all;
+      transition: color 0.15s ease;
+    }
+
+    .sidebar-row a:hover {
+      color: #ffffff;
+    }
+
+    /* Skills layout */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill-badge {
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+    }
+
+    /* Languages row */
+    .lang-item {
+      font-size: 11.5px;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lang-level {
+      color: var(--sidebar-text);
+      font-size: 10.5px;
+    }
+
+    /* Main Content Area */
+    .cv-main {
+      flex: 1;
+      padding: 28px 28px 28px 24px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .main-section {
+      margin-bottom: 18px;
+    }
+
+    .main-section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--dark);
+      padding-bottom: 3px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .main-section-title i {
+      font-size: 13px;
+      color: var(--primary);
+    }
+
+    .objective-text {
+      font-size: 12px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Timeline Items */
+    .timeline-item {
+      position: relative;
+      padding-left: 0px;
+      margin-bottom: 12px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .role-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .timeline-date {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--primary);
+      background: #e0e7ff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .company-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    .company-name a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .company-name a:hover {
+      text-decoration: underline;
+    }
+
+    .work-desc {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .work-desc li {
+      position: relative;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--text-main);
+      padding-left: 12px;
+      margin-bottom: 2px;
+    }
+
+    .work-desc li::before {
+      content: "•";
+      color: var(--secondary);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* Education styling */
+    .edu-item {
+      margin-bottom: 10px;
+    }
+    
+    .edu-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .edu-inst {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .edu-field {
+      font-size: 11.5px;
+      color: var(--text-main);
+      margin-top: 1px;
+    }
+
+    /* Projects Section styling */
+    .project-item {
+      background: #f8fafc;
+      border: 1px solid #f1f5f9;
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+
+    .project-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-link {
+      font-size: 10.5px;
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-weight: 600;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    .project-desc {
+      font-size: 11.5px;
+      color: var(--text-main);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Print styling rules */
+    @media print {
+      body {
+        background-color: #ffffff;
+        color: #000000;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .cv-page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating preview and action bar for Web Viewers -->
+  <div class="preview-header no-print">
+    <div class="preview-info">
+      <h2>Ahmed Raza — A4 Print Preview</h2>
+      <p>Click "Print / Save PDF" and select "Save as PDF" with margins set to "None" for the perfect layout.</p>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      <i class="ti ti-printer"></i> Print / Save PDF
+    </button>
+  </div>
+
+  <!-- A4 CV container -->
+  <div class="cv-page">
+    
+    <!-- Sidebar -->
+    <div class="cv-sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-avatar">AR</div>
+        <h1 class="sidebar-name">Ahmed Raza</h1>
+        <div class="sidebar-title">MERN Stack Developer</div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Contact</div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-phone"></i>
+          <span>0305-2622043</span>
+        </div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-mail"></i>
+          <a href="mailto:raza.mern.dev@gmail.com">raza.mern.dev@gmail.com</a>
+        </div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-map-pin"></i>
+          <span>Nazimabad, Karachi</span>
+        </div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-world"></i>
+          <a href="https://raza-portfolio-psi.vercel.app/" target="_blank">raza-portfolio-psi.vercel.app</a>
+        </div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-brand-github"></i>
+          <a href="https://github.com/razakhan83" target="_blank">github.com/razakhan83</a>
+        </div>
+      </div>
+
+      <!-- Personal Info -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Personal</div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-user"></i>
+          <span>Male</span>
+        </div>
+        
+        <div class="sidebar-row">
+          <i class="ti ti-calendar"></i>
+          <span>04 July 1999</span>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Skills</div>
+        <div class="skills-grid">
+          <span class="skill-badge">React.js</span>
+          <span class="skill-badge">Next.js</span>
+          <span class="skill-badge">Node.js</span>
+          <span class="skill-badge">Express.js</span>
+          <span class="skill-badge">MongoDB</span>
+          <span class="skill-badge">E-Commerce Dev</span>
+          <span class="skill-badge">SEO</span>
+          <span class="skill-badge">Meta Ads</span>
+          <span class="skill-badge">Social Media</span>
+          <span class="skill-badge">AI Tools</span>
+          <span class="skill-badge">CapCut</span>
+          <span class="skill-badge">DaVinci</span>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="sidebar-section" style="margin-top: auto; margin-bottom: 0;">
+        <div class="sidebar-section-title">Languages</div>
+        <div class="lang-item">
+          <span>English</span>
+          <span class="lang-level">Professional</span>
+        </div>
+        <div class="lang-item">
+          <span>Urdu</span>
+          <span class="lang-level">Native</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="cv-main">
+      
+      <!-- Objective -->
+      <div class="main-section">
+        <div class="main-section-title">
+          <i class="ti ti-target-arrow"></i> Objective
+        </div>
+        <div class="objective-text">
+          A passionate MERN Stack Developer and Digital Marketing specialist with hands-on experience in full-stack e-commerce development, AI-powered workflows, and meta advertising. Seeking to leverage my technical and marketing expertise to build impactful digital products and grow as a freelance professional.
+        </div>
+      </div>
+
+      <!-- Work Experience -->
+      <div class="main-section">
+        <div class="main-section-title">
+          <i class="ti ti-briefcase"></i> Work Experience
+        </div>
+
+        <!-- Experience 1 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="role-title">Team Leader — Social Media Marketing</span>
+            <span class="timeline-date">2018 – 2021</span>
+          </div>
+          <span class="company-name">IDM (Institute of Digital Marketing) — Gulshan, Karachi</span>
+          <ul class="work-desc">
+            <li>Led social media marketing department team operations, driving calendar scheduling and strategic campaigns.</li>
+            <li>Managed content planning, paid advertising budgets, and weekly client reporting.</li>
+          </ul>
+        </div>
+
+        <!-- Experience 2 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="role-title">Call Center Operator</span>
+            <span class="timeline-date">2021 – 2023</span>
+          </div>
+          <span class="company-name">MTM — Maktaba-tul-Madina, Karachi</span>
+          <ul class="work-desc">
+            <li>Handled inbound/outbound customer communications with professional excellence.</li>
+            <li>Maintained customer records database and resolved service queries efficiently.</li>
+          </ul>
+        </div>
+
+        <!-- Experience 3 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="role-title">Founder — E-Commerce Store</span>
+            <span class="timeline-date">2025 – Present</span>
+          </div>
+          <span class="company-name">Aam Saman — <a href="https://aamsaman.com/" target="_blank">aamsaman.com</a></span>
+          <ul class="work-desc">
+            <li>Founded and launched a full-stack e-commerce brand platform independently.</li>
+            <li>Direct product listing, payment gateway integration, logistics, and digital advertising.</li>
+          </ul>
+        </div>
+
+        <!-- Experience 4 -->
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="role-title">Freelance Web Developer & Marketer</span>
+            <span class="timeline-date">2026 – Present</span>
+          </div>
+          <span class="company-name">Self-Employed</span>
+          <ul class="work-desc">
+            <li>Build robust full-stack e-commerce sites using Next.js with Server-Side Rendering (SSR).</li>
+            <li>Set up comprehensive admin dashboards, optimize SEO, and run targeted Meta Ad campaigns.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="main-section">
+        <div class="main-section-title">
+          <i class="ti ti-school"></i> Education
+        </div>
+
+        <!-- Edu 1 -->
+        <div class="edu-item">
+          <div class="edu-header">
+            <span class="edu-inst">SMIT — Saylani Mass IT Training</span>
+            <span class="timeline-date">2023 – 2024</span>
+          </div>
+          <div class="edu-field">Web Development — MERN Stack (React, Next.js, Express, MongoDB)</div>
+        </div>
+
+        <!-- Edu 2 -->
+        <div class="edu-item">
+          <div class="edu-header">
+            <span class="edu-inst">Comprehensive Boys College, Karachi</span>
+            <span class="timeline-date">Intermediate</span>
+          </div>
+          <div class="edu-field">Computer Science</div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="main-section" style="margin-bottom: 0;">
+        <div class="main-section-title">
+          <i class="ti ti-code-minus"></i> Featured Project
+        </div>
+        <div class="project-item">
+          <div class="project-title">
+            <span>Full-Stack E-Commerce Platform (Next.js)</span>
+            <a href="https://github.com/razakhan83/raza-portfolio" target="_blank" class="project-link">
+              GitHub <i class="ti ti-arrow-up-right"></i>
+            </a>
+          </div>
+          <div class="project-desc">
+            Built a high-performance e-commerce solution with server-side rendering, fully-featured admin panel, granular inventory management, order tracking, and custom responsive UI components.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
