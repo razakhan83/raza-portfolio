@@ -1,71 +1,88 @@
 import { motion } from 'framer-motion';
-import { Separator } from '@heroui/react';
 import { FaGithub, FaLinkedinIn, FaDiscord, FaEnvelope } from 'react-icons/fa6';
 import AnimatedSection from './AnimatedSection';
 
 const SOCIALS = [
-  { icon: FaGithub, href: 'https://github.com/razakhan83', label: 'GitHub' },
-  { icon: FaLinkedinIn, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: FaDiscord, href: 'https://discord.com', label: 'Discord' },
-  { icon: FaEnvelope, href: 'mailto:ahmedraza@example.com', label: 'Email' },
+  { icon: FaGithub,     href: 'https://github.com/razakhan83',       label: 'GitHub',   color: '#7c6af0' },
+  { icon: FaLinkedinIn, href: 'https://linkedin.com',                  label: 'LinkedIn', color: '#0077b5' },
+  { icon: FaDiscord,    href: 'https://discord.com',                   label: 'Discord',  color: '#5865f2' },
+  { icon: FaEnvelope,   href: 'mailto:ahmedraza@example.com',           label: 'Email',    color: '#f472b6' },
 ];
 
 export default function Footer() {
   return (
-    <AnimatedSection
-      className="section-container pb-8 pt-16"
-      delay={0.1}
-    >
-      <Separator className="bg-[var(--border-subtle)] mb-8 h-px" />
-
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-        {/* Logo & Copyright */}
-        <div className="flex items-center gap-3">
-          <span
-            className="text-xl font-black tracking-wider text-white"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            AR
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full ml-0.5 align-super"
-              style={{ backgroundColor: 'var(--color-secondary)' }}
-            />
-          </span>
-          <span className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-            © {new Date().getFullYear()} Ahmed Raza. All rights reserved.
-          </span>
-        </div>
-
-        {/* Social Icons */}
-        <div className="flex items-center gap-3">
-          {SOCIALS.map(({ icon: Icon, href, label }) => (
-            <motion.a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={label}
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-secondary)] transition-colors duration-300"
-              style={{
-                backgroundColor: 'var(--bg-surface-light)',
-                border: '1px solid var(--border-subtle)',
-              }}
-              whileHover={{ y: -2, scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-cursor="pointer"
-            >
-              <Icon size={16} />
-            </motion.a>
-          ))}
-        </div>
-      </div>
-
-      <p
-        className="text-center text-xs mt-6"
-        style={{ color: 'var(--color-text-muted)', opacity: 0.6 }}
+    <AnimatedSection delay={0.05}>
+      <footer
+        className="section-container"
+        style={{ paddingTop: 'var(--sp-8)', paddingBottom: 'var(--sp-8)' }}
       >
-        Designed & Built with React 19, HeroUI, Tailwind CSS 4 & Framer Motion
-      </p>
+        <div className="divider" style={{ marginBottom: 'var(--sp-8)' }} />
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 'var(--sp-5)',
+          }}
+        >
+          {/* Logo + copyright */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-4)' }}>
+            <span
+              className="display-font"
+              style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--text-hi)', letterSpacing: '-0.02em' }}
+            >
+              AR
+              <span
+                style={{ display: 'inline-block', width: 5, height: 5, borderRadius: '50%', background: 'var(--teal)', marginLeft: 2, marginBottom: 4, verticalAlign: 'middle' }}
+              />
+            </span>
+            <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-lo)' }}>
+              © {new Date().getFullYear()} Ahmed Raza
+            </span>
+          </div>
+
+          {/* Social icons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-2)' }}>
+            {SOCIALS.map(({ icon: Icon, href, label, color }) => (
+              <motion.a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                className="surface btn-icon"
+                style={{
+                  width: 36, height: 36,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  borderRadius: 'var(--radius-md)',
+                }}
+                whileHover={{ y: -2, borderColor: color, backgroundColor: `${color}15` }}
+                whileTap={{ scale: 0.93 }}
+                transition={{ duration: 0.15 }}
+              >
+                <Icon size={14} style={{ color: 'var(--text-lo)' }} />
+              </motion.a>
+            ))}
+          </div>
+        </div>
+
+        {/* Built-with line */}
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: 'var(--text-xs)',
+            color: 'var(--text-lo)',
+            marginTop: 'var(--sp-6)',
+            opacity: 0.55,
+          }}
+        >
+          Built with React 19 · Framer Motion · Tailwind CSS 4
+        </p>
+      </footer>
     </AnimatedSection>
   );
 }

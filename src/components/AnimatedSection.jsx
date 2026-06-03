@@ -2,84 +2,66 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 /**
- * Reusable scroll-reveal wrapper using Framer Motion spring physics.
- * Wraps any section to animate it into view on first scroll intersection.
+ * Scroll-reveal wrapper. Slides + fades in on first viewport intersection.
  *
- * @param {object} props
- * @param {'up'|'down'|'left'|'right'} props.direction - Slide direction
- * @param {number} props.delay - Animation delay in seconds
- * @param {number} props.distance - Distance in pixels to slide from
- * @param {object} props.springConfig - Custom spring configuration
- * @param {string} props.className - Additional CSS classes
- * @param {React.ReactNode} props.children
+ * @param {'up'|'down'|'left'|'right'} direction - slide direction
+ * @param {number}  delay     - seconds before animation starts
+ * @param {number}  distance  - pixels to travel from
+ * @param {string}  className - extra CSS classes
+ * @param {React.ReactNode} children
  */
 export default function AnimatedSection({
   children,
   direction = 'up',
   delay = 0,
-  distance = 60,
-  springConfig = { stiffness: 100, damping: 20, mass: 1 },
+  distance = 48,
   className = '',
-  as: Component = 'div',
-  ...props
+  ...rest
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-64px' });
 
-  const directionMap = {
-    up: { x: 0, y: distance },
-    down: { x: 0, y: -distance },
-    left: { x: distance, y: 0 },
+  const offset = {
+    up:    { x: 0,         y: distance },
+    down:  { x: 0,         y: -distance },
+    left:  { x: distance,  y: 0 },
     right: { x: -distance, y: 0 },
-  };
-
-  const offset = directionMap[direction] || directionMap.up;
+  }[direction] ?? { x: 0, y: distance };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: offset.x, y: offset.y }}
-      animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: offset.x, y: offset.y }}
+      className={className}
+      initial={{ opacity: 0, ...offset }}
+      animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...offset }}
       transition={{
         type: 'spring',
-        ...springConfig,
+        stiffness: 90,
+        damping: 18,
+        mass: 0.9,
         delay,
       }}
-      className={className}
-      {...props}
+      {...rest}
     >
       {children}
     </motion.div>
   );
 }
 
-/**
- * Stagger container variant — wrap children items for cascading reveals.
- */
+/** Stagger container — wraps multiple AnimatedSection children for cascade effect */
 export const staggerContainer = {
-  hidden: { opacity: 0 },
+  hidden:  { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.07, delayChildren: 0.05 },
   },
 };
 
-/**
- * Individual stagger item variant with spring physics.
- */
+/** Individual stagger item */
 export const staggerItem = {
-  hidden: { opacity: 0, y: 40 },
+  hidden:  { opacity: 0, y: 32 },
   visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 120,
-      damping: 14,
-      mass: 1,
-    },
+    opacity: 1, y: 0,
+    transition: { type: 'spring', stiffness: 130, damping: 16, mass: 0.85 },
   },
 };

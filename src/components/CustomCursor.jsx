@@ -122,7 +122,7 @@ export default function CustomCursor() {
           width: 8,
           height: 8,
           borderRadius: '50%',
-          backgroundColor: 'var(--color-secondary)',
+          backgroundColor: 'var(--teal)',
           pointerEvents: 'none',
           zIndex: 99999,
           mixBlendMode: 'difference',
@@ -145,7 +145,7 @@ export default function CustomCursor() {
           width: 40,
           height: 40,
           borderRadius: '50%',
-          border: '2px solid var(--color-secondary)',
+          border: '2px solid var(--teal)',
           pointerEvents: 'none',
           zIndex: 99998,
           display: 'flex',
@@ -155,11 +155,11 @@ export default function CustomCursor() {
         animate={{
           scale: isClicking ? 0.7 : isHovering ? 1.8 : 1,
           opacity: isVisible ? (isHovering ? 0.9 : 0.4) : 0,
-          borderColor: isHovering ? 'var(--color-primary)' : 'var(--color-secondary)',
+          borderColor: isHovering ? 'var(--violet)' : 'var(--teal)',
           backgroundColor: isHovering
-            ? 'rgba(108, 92, 231, 0.06)'
+            ? 'rgba(124, 106, 240, 0.07)'
             : isClicking
-              ? 'rgba(253, 121, 168, 0.08)'
+              ? 'rgba(244, 114, 182, 0.08)'
               : 'transparent',
         }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
@@ -175,7 +175,7 @@ export default function CustomCursor() {
           style={{
             fontSize: '10px',
             fontWeight: 700,
-            color: 'var(--color-primary)',
+            color: 'var(--violet)',
             letterSpacing: '0.5px',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
