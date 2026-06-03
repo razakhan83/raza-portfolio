@@ -12,7 +12,7 @@ export default function ProjectModal({ project, onClose }) {
       />
       <Modal.Container className="fixed inset-0 z-[99991] flex items-center justify-center p-4">
         <Modal.Dialog
-          className="glass-card border-[var(--border-glow)] bg-[var(--bg-surface)]/95 text-white rounded-2xl w-full max-w-[680px] max-h-[90vh] overflow-y-auto shadow-2xl shadow-black/40"
+          className="glass-card border-[var(--border-glow)] bg-[var(--bg-surface)]/95 text-white rounded-2xl w-full max-w-[680px] max-h-[90vh] overflow-y-auto shadow-2xl shadow-black/40 mx-0 sm:mx-4"
         >
           <Modal.CloseTrigger
             className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[rgba(7,8,14,0.6)] border border-[var(--border-subtle)] text-white text-xl hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:rotate-90 transition-all duration-300"
@@ -69,13 +69,13 @@ export default function ProjectModal({ project, onClose }) {
             </div>
           </Modal.Body>
 
-          <Modal.Footer className="px-6 pb-6 pt-4 flex gap-3 border-t border-[var(--border-subtle)]">
+          <Modal.Footer className="px-4 sm:px-6 pb-5 sm:pb-6 pt-4 flex flex-col sm:flex-row gap-3 border-t border-[var(--border-subtle)]">
             <Button
               as="a"
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-[var(--bg-primary)] bg-[var(--color-secondary)] rounded-lg inline-flex items-center gap-2"
+              className="w-full sm:w-auto font-bold text-[var(--bg-primary)] bg-[var(--color-secondary)] rounded-lg inline-flex items-center justify-center gap-2"
             >
               <FaArrowUpRightFromSquare size={14} />
               Live Project
@@ -85,7 +85,7 @@ export default function ProjectModal({ project, onClose }) {
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-white bg-[var(--bg-surface-light)] border border-[var(--border-subtle)] hover:border-[var(--color-primary)] rounded-lg inline-flex items-center gap-2"
+              className="w-full sm:w-auto font-bold text-white bg-[var(--bg-surface-light)] border border-[var(--border-subtle)] hover:border-[var(--color-primary)] rounded-lg inline-flex items-center justify-center gap-2"
             >
               <FaGithub size={16} />
               GitHub Code

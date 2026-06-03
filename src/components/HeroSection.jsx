@@ -38,10 +38,10 @@ export default function HeroSection() {
       id="about"
       className="section-container relative min-h-[90vh] flex items-center pt-24 pb-16 lg:pt-32 lg:pb-24"
     >
-      <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-16 w-full">
+      <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between gap-10 sm:gap-12 lg:gap-16 w-full">
         {/* Left Text Column */}
         <motion.div
-          className="w-full lg:w-[55%]"
+          className="w-full lg:w-[55%] text-center lg:text-left"
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
@@ -105,7 +105,7 @@ export default function HeroSection() {
           {/* Social Links */}
           <motion.div
             variants={staggerItem}
-            className="flex flex-wrap gap-3 mt-8"
+            className="flex flex-wrap gap-3 mt-8 justify-center lg:justify-start"
           >
             {SOCIAL_LINKS.map(({ icon: Icon, label, href, color }) => (
               <motion.a
@@ -124,7 +124,7 @@ export default function HeroSection() {
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Icon size={18} style={{ color }} />
-                <span className="hidden sm:inline">{label}</span>
+                <span>{label}</span>
               </motion.a>
             ))}
           </motion.div>
@@ -132,11 +132,11 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <motion.div
             variants={staggerItem}
-            className="flex flex-col sm:flex-row gap-4 mt-8"
+            className="flex flex-col sm:flex-row gap-4 mt-8 w-full lg:w-auto"
           >
             <Button
               size="lg"
-              className="font-extrabold text-white bg-[var(--color-primary)] shadow-lg shadow-[var(--glow-primary)] text-base px-8 rounded-xl"
+              className="w-full sm:w-auto font-extrabold text-white bg-[var(--color-primary)] shadow-lg shadow-[var(--glow-primary)] text-base px-8 rounded-xl"
               onPress={() => handleScrollTo('contact')}
               data-cursor="pointer"
             >
@@ -146,7 +146,7 @@ export default function HeroSection() {
             <a
               href="/resume.pdf"
               download="Ahmed_Raza_CV.pdf"
-              className="inline-flex items-center justify-center gap-2 font-extrabold text-[var(--color-secondary)] border-2 border-[var(--color-secondary)] text-base px-8 py-3 rounded-xl hover:bg-[rgba(0,206,201,0.05)] hover:shadow-[0_0_20px_rgba(0,206,201,0.15)] transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-extrabold text-[var(--color-secondary)] border-2 border-[var(--color-secondary)] text-base px-8 py-3 rounded-xl hover:bg-[rgba(0,206,201,0.05)] hover:shadow-[0_0_20px_rgba(0,206,201,0.15)] transition-all duration-300"
               data-cursor="pointer"
             >
               <FaDownload size={16} />
@@ -157,13 +157,15 @@ export default function HeroSection() {
 
         {/* Right Profile Image Column */}
         <AnimatedSection direction="right" delay={0.3} className="w-full lg:w-[40%] flex justify-center">
-          <div className="relative">
+          {/* Outer wrapper with padding to prevent badge clipping */}
+          <div className="relative p-10 sm:p-12">
             {/* Animated gradient ring */}
             <motion.div
-              className="absolute -inset-3 rounded-full opacity-60"
+              className="absolute inset-10 sm:inset-12 rounded-full opacity-60"
               style={{
                 background: 'conic-gradient(from 0deg, var(--color-primary), var(--color-secondary), var(--color-accent), var(--color-primary))',
                 filter: 'blur(8px)',
+                margin: '-12px',
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
@@ -171,7 +173,7 @@ export default function HeroSection() {
 
             {/* Dashed orbit ring */}
             <motion.div
-              className="absolute -inset-6 rounded-full border-2 border-dashed"
+              className="absolute inset-4 sm:inset-4 rounded-full border-2 border-dashed"
               style={{ borderColor: 'rgba(0, 206, 201, 0.25)' }}
               animate={{ rotate: -360 }}
               transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
@@ -179,7 +181,7 @@ export default function HeroSection() {
 
             {/* Image container */}
             <motion.div
-              className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full p-1 overflow-hidden"
+              className="relative w-44 h-44 xs:w-52 xs:h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full p-1 overflow-hidden"
               style={{
                 border: '2px solid var(--color-secondary)',
                 backgroundColor: 'rgba(0, 206, 201, 0.03)',
@@ -206,9 +208,9 @@ export default function HeroSection() {
               />
             </motion.div>
 
-            {/* Floating tech badges */}
+            {/* Floating tech badges — repositioned to stay inside padded wrapper */}
             <motion.div
-              className="absolute -top-2 -right-4 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
+              className="absolute top-0 right-4 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
               style={{ color: 'var(--color-secondary)' }}
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -217,7 +219,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="absolute -bottom-2 -left-4 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
+              className="absolute bottom-0 left-4 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
               style={{ color: 'var(--color-accent)' }}
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
@@ -226,7 +228,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="absolute top-1/2 -right-8 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
+              className="absolute top-1/2 right-0 -translate-y-1/2 glass-card rounded-xl px-3 py-1.5 text-xs font-bold"
               style={{ color: 'var(--color-primary)' }}
               animate={{ x: [0, 6, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}

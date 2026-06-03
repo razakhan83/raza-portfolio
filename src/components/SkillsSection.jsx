@@ -89,7 +89,7 @@ function SkillBar({ name, percent, color, delay }) {
 export default function SkillsSection() {
   return (
     <section id="skills" className="section-container py-20 lg:py-28">
-      <AnimatedSection>
+      <AnimatedSection className="text-center sm:text-left">
         <h2
           className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight"
           style={{ fontFamily: 'var(--font-heading)' }}

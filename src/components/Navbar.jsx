@@ -57,7 +57,7 @@ export default function Navbar() {
         borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
       }}
     >
-      <nav className="section-container flex items-center justify-between h-16 lg:h-18">
+      <nav className="section-container flex items-center justify-between h-16 lg:h-[72px]">
         {/* Logo */}
         <motion.button
           onClick={() => handleScrollTo('about')}
@@ -122,20 +122,21 @@ export default function Navbar() {
           className="md:hidden flex flex-col gap-1.5 p-2 bg-transparent border-none"
           onClick={() => setMobileOpen(!mobileOpen)}
           whileTap={{ scale: 0.9 }}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
         >
           <motion.span
-            className="block w-6 h-0.5 bg-white rounded-full origin-left"
-            animate={mobileOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: 0 }}
+            className="block w-6 h-0.5 bg-white rounded-full origin-center"
+            animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
           />
           <motion.span
             className="block w-6 h-0.5 bg-white rounded-full"
-            animate={mobileOpen ? { opacity: 0, x: 10 } : { opacity: 1, x: 0 }}
+            animate={mobileOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.15 }}
           />
           <motion.span
-            className="block w-6 h-0.5 bg-white rounded-full origin-left"
-            animate={mobileOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 0 }}
+            className="block w-6 h-0.5 bg-white rounded-full origin-center"
+            animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
           />
         </motion.button>
