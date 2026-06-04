@@ -5,7 +5,6 @@ import AnimatedSection, { staggerContainer, staggerItem } from './AnimatedSectio
 
 const ROLES = [
   'MERN Stack Developer',
-  'Digital Marketing Specialist',
   'Next.js Engineer',
   'Full-Stack Architect',
 ];
@@ -17,18 +16,35 @@ const SOCIAL_LINKS = [
   { icon: FaEnvelope,   label: 'Email',    href: 'mailto:raza.mern.dev@gmail.com',                  color: '#f472b6' },
 ];
 
-const FLOAT_BADGES = [
-  { text: 'React 19',  pos: 'top-1 right-6',          color: 'var(--teal)',   delay: 0 },
-  { text: 'Node.js',   pos: 'bottom-2 left-6',         color: 'var(--rose)',   delay: 0.6 },
-  { text: 'MongoDB',   pos: 'top-1/2 -right-2 -translate-y-1/2', color: 'var(--violet)', delay: 1.1 },
+const BADGE_GROUPS = [
+  {
+    pos: 'top-1 right-6',
+    color: 'var(--teal)',
+    skills: ['React 19', 'Next.js 15', 'TypeScript', 'Tailwind v4', 'Redux Toolkit', 'Frontend Dev'],
+  },
+  {
+    pos: 'bottom-2 left-6',
+    color: 'var(--rose)',
+    skills: ['Node.js', 'Express.js', 'Socket.io', 'RESTful APIs', 'Docker', 'GraphQL'],
+  },
+  {
+    pos: 'top-1/2 -right-2 -translate-y-1/2',
+    color: 'var(--violet)',
+    skills: ['MongoDB', 'PostgreSQL', 'Prisma ORM', 'Firebase', 'JWT Auth', 'Cloud Native'],
+  },
 ];
 
 export default function HeroSection() {
   const [roleIdx, setRoleIdx] = useState(0);
+  const [badgeSkillIdx, setBadgeSkillIdx] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 3000);
-    return () => clearInterval(id);
+    const roleId = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 3000);
+    const badgeId = setInterval(() => setBadgeSkillIdx(i => i + 1), 4000);
+    return () => {
+      clearInterval(roleId);
+      clearInterval(badgeId);
+    };
   }, []);
 
   const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -216,7 +232,7 @@ export default function HeroSection() {
             >
               <img
                 src="https://github.com/razakhan83.png"
-                alt="Ahmed Raza — MERN Stack Developer & Digital Marketing Specialist"
+                alt="Ahmed Raza — MERN Stack Developer"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 onError={e => {
                   e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80';
@@ -224,26 +240,48 @@ export default function HeroSection() {
               />
             </motion.div>
 
-            {/* Floating tech badges */}
-            {FLOAT_BADGES.map(({ text, pos, color, delay }) => (
-              <motion.div
-                key={text}
-                className={`absolute surface ${pos}`}
-                style={{
-                  padding: '0.3rem 0.75rem',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
-                  color,
-                  zIndex: 10,
-                }}
-                animate={{ y: [0, -7, 0] }}
-                transition={{ duration: 3 + delay, repeat: Infinity, ease: 'easeInOut', delay }}
-              >
-                {text}
-              </motion.div>
-            ))}
+            {/* Dynamic, auto-changing animated floating tech badges */}
+            {BADGE_GROUPS.map((group, groupIdx) => {
+              const currentSkill = group.skills[badgeSkillIdx % group.skills.length];
+              return (
+                <div
+                  key={groupIdx}
+                  className={`absolute ${group.pos}`}
+                  style={{ zIndex: 10 }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -7, 0] }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: groupIdx * 0.7,
+                    }}
+                  >
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentSkill}
+                        className="surface"
+                        style={{
+                          padding: '0.3rem 0.75rem',
+                          borderRadius: 'var(--radius-sm)',
+                          fontSize: 'var(--text-xs)',
+                          fontWeight: 700,
+                          fontFamily: 'var(--font-display)',
+                          color: group.color,
+                        }}
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.6, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      >
+                        {currentSkill}
+                      </motion.div>
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              );
+            })}
           </div>
         </AnimatedSection>
       </div>
