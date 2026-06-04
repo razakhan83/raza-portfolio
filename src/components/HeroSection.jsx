@@ -5,9 +5,9 @@ import AnimatedSection, { staggerContainer, staggerItem } from './AnimatedSectio
 
 const ROLES = [
   'MERN Stack Developer',
+  'Digital Marketing Specialist',
   'Next.js Engineer',
   'Full-Stack Architect',
-  'UI/UX Enthusiast',
 ];
 
 const SOCIAL_LINKS = [
@@ -216,7 +216,7 @@ export default function HeroSection() {
             >
               <img
                 src="https://github.com/razakhan83.png"
-                alt="Ahmed Raza — MERN Stack Developer"
+                alt="Ahmed Raza — MERN Stack Developer & Digital Marketing Specialist"
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 onError={e => {
                   e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80';
