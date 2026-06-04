@@ -11,10 +11,10 @@ const ROLES = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: FaGithub,     label: 'GitHub',   href: 'https://github.com/razakhan83',        color: '#7c6af0' },
-  { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://linkedin.com',                  color: '#0077b5' },
-  { icon: FaDiscord,    label: 'Discord',  href: 'https://discord.com',                   color: '#5865f2' },
-  { icon: FaEnvelope,   label: 'Email',    href: 'mailto:ahmedraza@example.com',           color: '#f472b6' },
+  { icon: FaGithub,     label: 'GitHub',   href: 'https://github.com/razakhan83',                  color: '#7c6af0' },
+  { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://linkedin.com/in/ahmed-raza-abc786',     color: '#0077b5' },
+  { icon: FaDiscord,    label: 'Discord',  href: 'https://discord.com',                             color: '#5865f2' },
+  { icon: FaEnvelope,   label: 'Email',    href: 'mailto:raza.mern.dev@gmail.com',                  color: '#f472b6' },
 ];
 
 const FLOAT_BADGES = [
@@ -148,8 +148,8 @@ export default function HeroSection() {
             </motion.button>
 
             <motion.a
-              href="/ahmed_raza_cv.html"
-              download="Ahmed_Raza_CV.html"
+              href="/ahmed_raza_cv.pdf"
+              download="Ahmed_Raza_CV.pdf"
               className="btn btn-outline btn-lg w-full sm:w-auto"
               data-cursor="pointer"
               whileHover={{ y: -2 }}

@@ -54,8 +54,18 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = id => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setMobileOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      if (mobileOpen) {
+        setMobileOpen(false);
+        // Wait for the drawer close animation to complete (280ms) before scrolling
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   return (
