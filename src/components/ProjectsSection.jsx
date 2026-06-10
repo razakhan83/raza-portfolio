@@ -24,9 +24,9 @@ const PROJECTS = [
     longDesc: 'Professional client onboarding and gateway case handling platform. Streamlined multi-step form workflow, JWT authentication, role-based access control, real-time socket updates, and analytics dashboards.',
     badge: 'Full-Stack',
     badgeColor: 'var(--teal)',
-    image: 'https://images.unsplash.com/photo-1611224885990-ab7363d1f2a9?auto=format&fit=crop&w=600&q=80',
-    liveLink: 'https://github.com/razakhan83',
-    githubLink: 'https://github.com/razakhan83',
+    image: '/Project2.png',
+    liveLink: 'hhttps://bill-zip.vercel.app',
+    githubLink: 'https://github.com/razakhan83/BillZip',
   },
   {
     id: '3',
@@ -36,9 +36,9 @@ const PROJECTS = [
     longDesc: 'Cutting-edge portfolio with custom cursor spring physics, scroll-triggered reveal animations, glassmorphic design elements, and fully responsive layouts built with React 19.',
     badge: 'React 19',
     badgeColor: 'var(--rose)',
-    image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=600&q=80',
-    liveLink: 'https://github.com/razakhan83',
-    githubLink: 'https://github.com/razakhan83',
+    image: '/Project3.png',
+    liveLink: 'https://raza-portfolio-psi.vercel.app',
+    githubLink: 'https://github.com/razakhan83raza-portfolio',
   },
 ];
 
