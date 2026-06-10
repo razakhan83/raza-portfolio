@@ -12,9 +12,9 @@ const PROJECTS = [
     longDesc: 'A premium full-stack e-commerce experience for modern online retailers. Redux Toolkit state management, secure Stripe checkout, real-time product search, and dynamic category filtering.',
     badge: 'MERN Stack',
     badgeColor: 'var(--violet)',
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1d704d3?auto=format&fit=crop&w=600&q=80',
-    liveLink: 'https://github.com/razakhan83',
-    githubLink: 'https://github.com/razakhan83',
+    image: '/Project1.png',
+    liveLink: 'https://china-unique-store-main.vercel.app',
+    githubLink: 'https://github.com/razakhan83/china-unique-store-main',
   },
   {
     id: '2',
