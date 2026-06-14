@@ -6,7 +6,7 @@ const SOCIALS = [
   { icon: FaGithub,     href: 'https://github.com/razakhan83',       label: 'GitHub',   color: '#7c6af0' },
   { icon: FaLinkedinIn, href: 'https://linkedin.com',                  label: 'LinkedIn', color: '#0077b5' },
   { icon: FaDiscord,    href: 'https://discord.com',                   label: 'Discord',  color: '#5865f2' },
-  { icon: FaEnvelope,   href: 'mailto:ahmedraza@example.com',           label: 'Email',    color: '#f472b6' },
+  { icon: FaEnvelope,   href: 'mailto:123raza83@gmail.com',           label: 'Email',    color: '#f472b6' },
 ];
 
 export default function Footer() {

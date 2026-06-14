@@ -10,14 +10,39 @@ export default function ContactSection() {
   const handleSubmit = e => {
     e.preventDefault();
     const d = new FormData(e.target);
-    if (!d.get('name') || !d.get('email') || !d.get('message')) return;
+    const name = d.get('name');
+    const email = d.get('email');
+    const message = d.get('message');
+    if (!name || !email || !message) return;
+
     setSending(true);
-    setTimeout(() => {
+
+    fetch("https://formsubmit.co/ajax/123raza83@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message
+      })
+    })
+    .then(res => {
       setSending(false);
-      setSent(true);
-      e.target.reset();
-      setTimeout(() => setSent(false), 5000);
-    }, 1400);
+      if (res.ok) {
+        setSent(true);
+        e.target.reset();
+        setTimeout(() => setSent(false), 5000);
+      } else {
+        alert("Failed to send message. Please try again or email me directly at 123raza83@gmail.com");
+      }
+    })
+    .catch(err => {
+      setSending(false);
+      alert("An error occurred. Please try again or email me directly at 123raza83@gmail.com");
+    });
   };
 
   return (

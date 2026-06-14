@@ -13,7 +13,7 @@ const SOCIAL_LINKS = [
   { icon: FaGithub,     label: 'GitHub',   href: 'https://github.com/razakhan83',                  color: '#7c6af0' },
   { icon: FaLinkedinIn, label: 'LinkedIn', href: 'https://linkedin.com/in/ahmed-raza-abc786',     color: '#0077b5' },
   { icon: FaDiscord,    label: 'Discord',  href: 'https://discord.com',                             color: '#5865f2' },
-  { icon: FaEnvelope,   label: 'Email',    href: 'mailto:raza.mern.dev@gmail.com',                  color: '#f472b6' },
+  { icon: FaEnvelope,   label: 'Email',    href: 'mailto:123raza83@gmail.com',                  color: '#f472b6' },
 ];
 
 const BADGE_GROUPS = [
