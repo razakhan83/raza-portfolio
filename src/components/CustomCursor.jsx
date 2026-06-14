@@ -10,7 +10,8 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
  */
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+  const [isHoveringText, setIsHoveringText] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [cursorLabel, setCursorLabel] = useState('');
 
@@ -18,13 +19,13 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Inner dot — tight spring (near-instant)
-  const dotX = useSpring(mouseX, { stiffness: 500, damping: 28, mass: 0.5 });
-  const dotY = useSpring(mouseY, { stiffness: 500, damping: 28, mass: 0.5 });
+  // Inner dot — ultra-responsive tight spring
+  const dotX = useSpring(mouseX, { stiffness: 850, damping: 38, mass: 0.3 });
+  const dotY = useSpring(mouseY, { stiffness: 850, damping: 38, mass: 0.3 });
 
-  // Outer ring — softer spring (elegant trail)
-  const ringX = useSpring(mouseX, { stiffness: 150, damping: 15, mass: 1 });
-  const ringY = useSpring(mouseY, { stiffness: 150, damping: 15, mass: 1 });
+  // Outer ring — organic spring for smooth trailing
+  const ringX = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.8 });
+  const ringY = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.8 });
 
   const handleMouseMove = useCallback((e) => {
     mouseX.set(e.clientX);
@@ -33,20 +34,19 @@ export default function CustomCursor() {
   }, [mouseX, mouseY, isVisible]);
 
   useEffect(() => {
-    // Check if device supports fine pointer (no touch-only)
-    const isFinePonter = window.matchMedia('(pointer: fine)').matches;
-    if (!isFinePonter) return;
+    const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+    if (!isFinePointer) return;
 
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    document.addEventListener('mouseenter', handleMouseEnter, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -57,54 +57,60 @@ export default function CustomCursor() {
     };
   }, [handleMouseMove]);
 
-  // Track interactive elements for hover state
+  // High Performance Event Delegation for hovering states
   useEffect(() => {
-    const addHoverListeners = () => {
-      const interactives = document.querySelectorAll(
-        'a, button, [data-cursor="pointer"], .project-card-wrapper, input, textarea'
-      );
+    const handleMouseOver = (e) => {
+      const target = e.target;
+      if (!target) return;
 
-      const enterHandler = (e) => {
-        setIsHovering(true);
-        const label = e.currentTarget.getAttribute('data-cursor-label');
+      const interactiveTarget = target.closest('a, button, [data-cursor="pointer"], .project-card-wrapper, input, textarea');
+      const textTarget = target.closest('p, h1, h2, h3, h4, h5, h6, li, label, code');
+
+      if (interactiveTarget) {
+        setIsHoveringInteractive(true);
+        setIsHoveringText(false);
+        const label = interactiveTarget.getAttribute('data-cursor-label');
         if (label) setCursorLabel(label);
-      };
-
-      const leaveHandler = () => {
-        setIsHovering(false);
+      } else if (textTarget) {
+        setIsHoveringText(true);
+        setIsHoveringInteractive(false);
+      } else {
+        setIsHoveringInteractive(false);
+        setIsHoveringText(false);
         setCursorLabel('');
-      };
-
-      interactives.forEach((el) => {
-        el.addEventListener('mouseenter', enterHandler);
-        el.addEventListener('mouseleave', leaveHandler);
-      });
-
-      return () => {
-        interactives.forEach((el) => {
-          el.removeEventListener('mouseenter', enterHandler);
-          el.removeEventListener('mouseleave', leaveHandler);
-        });
-      };
+      }
     };
 
-    // Delay to allow DOM to render
-    const timer = setTimeout(addHoverListeners, 500);
+    const handleMouseOut = (e) => {
+      const target = e.target;
+      if (!target) return;
 
-    // Re-observe for dynamic content
-    const observer = new MutationObserver(() => {
-      clearTimeout(timer);
-      setTimeout(addHoverListeners, 100);
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+      const interactiveTarget = target.closest('a, button, [data-cursor="pointer"], .project-card-wrapper, input, textarea');
+      const textTarget = target.closest('p, h1, h2, h3, h4, h5, h6, li, label, code');
+
+      if (interactiveTarget) {
+        const related = e.relatedTarget;
+        if (!related || !interactiveTarget.contains(related)) {
+          setIsHoveringInteractive(false);
+          setCursorLabel('');
+        }
+      } else if (textTarget) {
+        const related = e.relatedTarget;
+        if (!related || !textTarget.contains(related)) {
+          setIsHoveringText(false);
+        }
+      }
+    };
+
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    document.addEventListener('mouseout', handleMouseOut, { passive: true });
 
     return () => {
-      clearTimeout(timer);
-      observer.disconnect();
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
     };
   }, []);
 
-  // Don't render on mobile/touch
   if (typeof window !== 'undefined' && !window.matchMedia('(pointer: fine)').matches) {
     return null;
   }
@@ -119,19 +125,19 @@ export default function CustomCursor() {
           top: dotY,
           translateX: '-50%',
           translateY: '-50%',
-          width: 8,
-          height: 8,
+          width: 6,
+          height: 6,
           borderRadius: '50%',
-          backgroundColor: 'var(--teal)',
+          backgroundColor: isHoveringInteractive ? 'var(--teal)' : 'white',
           pointerEvents: 'none',
           zIndex: 99999,
-          mixBlendMode: 'difference',
+          mixBlendMode: isHoveringInteractive ? 'normal' : 'difference',
         }}
         animate={{
-          scale: isClicking ? 0.5 : isHovering ? 0.4 : 1,
+          scale: isClicking ? 0.5 : isHoveringInteractive ? 0.3 : isHoveringText ? 0 : 1,
           opacity: isVisible ? 1 : 0,
         }}
-        transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+        transition={{ type: 'spring', stiffness: 350, damping: 16, mass: 0.5 }}
       />
 
       {/* Outer Ring */}
@@ -145,7 +151,6 @@ export default function CustomCursor() {
           width: 40,
           height: 40,
           borderRadius: '50%',
-          border: '2px solid var(--teal)',
           pointerEvents: 'none',
           zIndex: 99998,
           display: 'flex',
@@ -153,36 +158,45 @@ export default function CustomCursor() {
           justifyContent: 'center',
         }}
         animate={{
-          scale: isClicking ? 0.7 : isHovering ? 1.8 : 1,
-          opacity: isVisible ? (isHovering ? 0.9 : 0.4) : 0,
-          borderColor: isHovering ? 'var(--violet)' : 'var(--teal)',
-          backgroundColor: isHovering
-            ? 'rgba(124, 106, 240, 0.07)'
-            : isClicking
-              ? 'rgba(244, 114, 182, 0.08)'
+          scale: isClicking ? 0.75 : isHoveringInteractive ? 1.4 : isHoveringText ? 1.8 : 1,
+          opacity: isVisible ? 1 : 0,
+          // Colors and borders
+          border: isHoveringText
+            ? 'none'
+            : isHoveringInteractive
+              ? '2px solid var(--teal)'
+              : '2px solid rgba(45, 212, 191, 0.4)',
+          backgroundColor: isHoveringText
+            ? 'white'
+            : isHoveringInteractive
+              ? 'rgba(45, 212, 191, 0.08)'
               : 'transparent',
+          // Apply mix-blend-mode difference ONLY when hovering over text
+          mixBlendMode: isHoveringText ? 'difference' : 'normal',
         }}
-        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 12, mass: 0.8 }}
       >
         {/* Cursor Label */}
-        <motion.span
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{
-            opacity: cursorLabel ? 1 : 0,
-            scale: cursorLabel ? 1 : 0.5,
-          }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          style={{
-            fontSize: '10px',
-            fontWeight: 700,
-            color: 'var(--violet)',
-            letterSpacing: '0.5px',
-            textTransform: 'uppercase',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {cursorLabel}
-        </motion.span>
+        {cursorLabel && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            style={{
+              fontSize: '9px',
+              fontWeight: 800,
+              color: 'var(--bg-base)',
+              letterSpacing: '0.5px',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {cursorLabel}
+          </motion.span>
+        )}
       </motion.div>
     </>
   );
